@@ -1,0 +1,38 @@
+FROM buildenv-base
+LABEL stage=build
+ENV ARCH=mips
+ENV HOST=mips-linux-gnu
+ENV PKG_CONFIG_PATH=/usr/lib/${HOST}/pkgconfig
+ENV CC=${HOST}-gcc
+
+WORKDIR /tmp
+RUN echo "deb http://archive.debian.org/debian stretch main" > /etc/apt/sources.list
+RUN dpkg --add-architecture $ARCH 
+RUN apt-get update
+RUN apt-get install -y -f aptitude gcc-mips-linux-gnu gcc-mips64-linux-gnuabi64
+RUN aptitude install -y \
+      pkg-config:$ARCH \
+      debconf:$ARCH \
+      install-info:$ARCH \
+      libnfnetlink-dev:$ARCH \
+      libreadline-dev:$ARCH \
+      libgmp-dev:$ARCH \
+      libgcrypt20:$ARCH \
+      liblz4-1:$ARCH \
+      liblzma5:$ARCH \
+      libdbus-1-3:$ARCH \
+      libsystemd0:$ARCH \
+      libmpc-dev:$ARCH \
+      libmpfr-dev:$ARCH \
+      nettle-dev:$ARCH \
+      libidn11-dev:$ARCH \
+      libidn2-0-dev:$ARCH \
+      libdbus-1-dev:$ARCH \
+      libnetfilter-conntrack-dev:$ARCH \
+      linux-libc-dev:$ARCH \
+      libc-dev:$ARCH \
+      liblua5.2-dev:$ARCH \
+      libssl1.1:$ARCH \
+      libssl-dev:$ARCH
+
+WORKDIR /work

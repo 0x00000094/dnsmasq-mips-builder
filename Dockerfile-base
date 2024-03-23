@@ -1,0 +1,27 @@
+FROM debian:stretch-slim
+LABEL stage=base
+ARG DEBIAN_FRONTEND=noninteractive
+RUN echo "deb http://archive.debian.org/debian stretch main" > /etc/apt/sources.list
+RUN apt-get update && \
+    apt-get install -y --no-install-suggests --no-install-recommends \
+      autoconf \
+      automake \
+      bc \
+      bison \
+      build-essential \
+      ca-certificates \
+      check \
+      curl \
+      dpkg-dev \
+      dh-runit \
+      fakeroot \
+      file \
+      flex \
+      gawk \
+      gettext \
+      git \
+      libtool \
+      texinfo \
+	    cpio \
+      wget \
+      vim

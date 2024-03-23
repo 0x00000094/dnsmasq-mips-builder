@@ -1,0 +1,28 @@
+FROM buildenv-base
+LABEL stage=build
+ENV ARCH=mipsel
+ENV HOST=mipsel-linux-gnu
+ENV PKG_CONFIG_PATH=/usr/lib/${HOST}/pkgconfig
+ENV CC=${HOST}-gcc
+
+WORKDIR /tmp
+RUN dpkg --add-architecture $ARCH && \
+    apt-get update && \
+    apt-get install -y --no-install-suggests --no-install-recommends \
+      gcc-mipsel-linux-gnu \
+      gcc-mips64el-linux-gnuabi64 \
+      libgmp-dev:$ARCH \
+      libmpc-dev:$ARCH \
+      libmpfr-dev:$ARCH \
+      nettle-dev:$ARCH \
+      libidn11-dev:$ARCH \
+      libidn2-0-dev:$ARCH \
+      libdbus-1-dev:$ARCH \
+      libnetfilter-conntrack-dev:$ARCH \
+      linux-libc-dev:$ARCH \
+      libc-dev:$ARCH \
+      liblua5.2-dev:$ARCH \
+      libssl1.1:$ARCH \
+      libssl-dev:$ARCH
+
+WORKDIR /work
